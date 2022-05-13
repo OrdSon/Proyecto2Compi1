@@ -1,8 +1,13 @@
+
 import { OpenFilesService } from './../../services/open-files.service';
 import { textInfo } from './../../objects/text-info';
 import { AfterViewInit, Component, ElementRef, ViewChild, Input } from '@angular/core';
 import * as ace from "ace-builds";
 import Swal from 'sweetalert2';
+
+declare var GramaticaFinal:any;
+
+
 @Component({
   selector: 'app-text-editor',
   templateUrl: './text-editor.component.html',
@@ -22,13 +27,15 @@ export class TextEditorComponent implements AfterViewInit {
   @Input() info!: textInfo;
  
   constructor(public openFiles: OpenFilesService) {
-
+    
   }
 
   ngAfterViewInit(): void {
     ace.config.set("fontSize", "14px");
     const aceEditor = ace.edit(this.editor.nativeElement);
-    aceEditor.session.setUseSoftTabs(false);
+    aceEditor.setOption("useSoftTabs",false);
+    aceEditor.setOption("tabSize",4);
+
     if (this.info != null) {
       aceEditor.setValue(this.info.textContent);
     } else {
@@ -42,7 +49,8 @@ export class TextEditorComponent implements AfterViewInit {
   guardarCambios(){
     const aceEditor = ace.edit(this.editor.nativeElement);
     this.info.textContent = aceEditor.getValue();
-
+    let filter:Array<String> = ["    ","\s\s\s\s"];
+  
   }
   autoDestruccion() {
     Swal.fire({
@@ -61,5 +69,23 @@ export class TextEditorComponent implements AfterViewInit {
     })
   }
 
+  parsear(){
+    const aceEditor = ace.edit(this.editor.nativeElement);
+    let texto: String = aceEditor.session.getValue();
+    let nuevo = texto.replace(/(    )/g,"\t");
+    nuevo.trimEnd();
+    console.log(texto.indexOf("\t"));
+    console.log(texto.indexOf("\n"));
+    console.log(texto.indexOf(" "));
+    
+    aceEditor.session.setValue(nuevo);
+    GramaticaFinal.parse(aceEditor.getValue());
+  }
 
+  trimEnd(cadena:String){
+    let arreglo = cadena.split("\n");
+    for(let i = 0; i < arreglo.length;i++){
+      
+    }
+  }
 }
