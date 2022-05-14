@@ -1,11 +1,10 @@
-
 import { OpenFilesService } from './../../services/open-files.service';
 import { textInfo } from './../../objects/text-info';
 import { AfterViewInit, Component, ElementRef, ViewChild, Input } from '@angular/core';
 import * as ace from "ace-builds";
 import Swal from 'sweetalert2';
+import {parser as Parser} from 'src/assets/GramaticaFinal.js'
 
-declare var GramaticaFinal:any;
 
 
 @Component({
@@ -79,7 +78,7 @@ export class TextEditorComponent implements AfterViewInit {
     console.log(texto.indexOf(" "));
     
     aceEditor.session.setValue(nuevo);
-    GramaticaFinal.parse(aceEditor.getValue());
+    Parser.parse(aceEditor.getValue());
   }
 
   trimEnd(cadena:String){

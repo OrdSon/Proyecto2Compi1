@@ -9,7 +9,8 @@ import { TextEditorComponent } from './Interfaz/text-editor/text-editor.componen
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatTabsModule} from '@angular/material/tabs';
 import { TerminalComponent } from './Interfaz/terminal/terminal.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { Declaracion } from 'src/Instrucciones/Declaracion';
 
 @NgModule({
   declarations: [

@@ -83,11 +83,17 @@ performAction: function anonymous(yytext, yyleng, yylineno, yy, yystate /* actio
 
 var $0 = $$.length - 1;
 switch (yystate) {
-case 26: case 27: case 28: case 29: case 30: case 31:
+case 24: case 26: case 27: case 28: case 29: case 30: case 31: case 62:
 console.log($$[$0]);
 break;
-case 60:
+case 63: case 64: case 66:
 console.log($$[$0-2]);
+break;
+case 73: case 76:
+console.log($$[$0-4]);
+break;
+case 74:
+console.log($$[$0-3]);
 break;
 }
 },

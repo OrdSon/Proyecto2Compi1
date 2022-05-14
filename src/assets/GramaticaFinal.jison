@@ -140,7 +140,7 @@ EXPR:
     PRIMITIVO
     |OP_ARITMETICAS
     |LLAMADA
-    |identificador
+    |identificador{console.log($1);}
     |openpar EXPR closepar
     ;
 
@@ -203,7 +203,7 @@ SARG:
     |RELACIONES
     ;
 DECLARACION_VACIA:
-    tab TIPO ID_LIST {console.log($1);}
+    tab TIPO ID_LIST 
     ;
 
 ID_LIST:
@@ -211,15 +211,15 @@ ID_LIST:
     ;
 
 ID:
-    identificador
+    identificador {console.log($1);}
     ;
 DECLARACION:
-    tab TIPO identificador igual EXPR 
-    |TIPO identificador igual EXPR 
+    tab TIPO identificador igual EXPR {console.log($3);}
+    |TIPO identificador igual EXPR {console.log($2);}
     |DECLARACION_VACIA
     ;
 ASIGNACION:
-    tab identificador igual EXPR 
+    tab identificador igual EXPR {console.log($2);}
     ;
 TIPO:
     intt
@@ -230,12 +230,12 @@ TIPO:
     |void
 ;
 FUNCION:
-    TIPO identificador openpar PARAMS closepar colon  
-    |TIPO identificador openpar  closepar colon
+    TIPO identificador openpar PARAMS closepar colon  {console.log($2);}
+    |TIPO identificador openpar  closepar colon {console.log($2);}
 |PRINCIPAL
 ;
 PRINCIPAL:
-    void principal openpar PARAMS closepar colon
+    void principal openpar PARAMS closepar colon{console.log($2);}
     |void principal openpar  closepar colon
 ;
 RETURN:
