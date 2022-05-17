@@ -1,3 +1,4 @@
+import { Processor } from './../../objects/Processor';
 import { OpenFilesService } from './../../services/open-files.service';
 import { textInfo } from './../../objects/text-info';
 import { AfterViewInit, Component, ElementRef, ViewChild, Input } from '@angular/core';
@@ -78,7 +79,12 @@ export class TextEditorComponent implements AfterViewInit {
     console.log(texto.indexOf(" "));
     
     aceEditor.session.setValue(nuevo);
-    Parser.parse(aceEditor.getValue());
+    let recognized = Parser.parse(aceEditor.getValue());
+    let proccesor:Processor = new Processor();
+    proccesor.lineas = recognized;
+    proccesor.verificarEntorno();
+    proccesor.setearPadre();
+    proccesor.setearEntorno();
   }
 
   trimEnd(cadena:String){
